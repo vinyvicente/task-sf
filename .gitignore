@@ -17,3 +17,4 @@
 
 .idea/
 .php_cs.cache
+tests/coverage/
