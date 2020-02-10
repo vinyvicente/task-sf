@@ -5,7 +5,7 @@ namespace App\Infrastructure\Doctrine\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity(repositoryClass="App\Repository\TaskRepository")
+ * @ORM\Entity(repositoryClass="App\Infrastructure\Doctrine\Repository\TaskRepository")
  */
 class Task
 {

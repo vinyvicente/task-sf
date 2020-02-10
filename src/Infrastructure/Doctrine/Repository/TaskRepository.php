@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Repository;
+namespace App\Infrastructure\Doctrine\Repository;
 
 use App\Infrastructure\Doctrine\Entity\Task;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
@@ -12,39 +12,35 @@ use Doctrine\Common\Persistence\ManagerRegistry;
  * @method Task[]    findAll()
  * @method Task[]    findBy(array $criteria, array $orderBy = null, $limit = null, $offset = null)
  */
-class TaskRepository extends ServiceEntityRepository
+class TaskRepository extends ServiceEntityRepository implements \App\Domain\TaskRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, Task::class);
     }
 
-    // /**
-    //  * @return Task[] Returns an array of Task objects
-    //  */
-    /*
-    public function findByExampleField($value)
+    public function create(\App\Domain\Task $task): int
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->orderBy('t.id', 'ASC')
-            ->setMaxResults(10)
-            ->getQuery()
-            ->getResult()
-        ;
+        // TODO: Implement create() method.
     }
-    */
 
-    /*
-    public function findOneBySomeField($value): ?Task
+    public function get($id): ?\App\Domain\Task
     {
-        return $this->createQueryBuilder('t')
-            ->andWhere('t.exampleField = :val')
-            ->setParameter('val', $value)
-            ->getQuery()
-            ->getOneOrNullResult()
-        ;
+        // TODO: Implement get() method.
     }
-    */
+
+    public function update($id, \App\Domain\Task $task): \App\Domain\Task
+    {
+        // TODO: Implement update() method.
+    }
+
+    public function has($id): bool
+    {
+        // TODO: Implement has() method.
+    }
+
+    public function remove($id): void
+    {
+        // TODO: Implement remove() method.
+    }
 }
