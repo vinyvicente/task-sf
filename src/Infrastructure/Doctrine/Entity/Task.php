@@ -18,6 +18,12 @@ class Task
     private $id;
 
     /**
+     * @ORM\ManyToOne(targetEntity="App\Infrastructure\Doctrine\Entity\User", inversedBy="users")
+     * @ORM\Column(type="integer", nullable=false)
+     */
+    private $user;
+
+    /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
@@ -45,6 +51,13 @@ class Task
     public function getTitle(): ?string
     {
         return $this->title;
+    }
+
+    public function setUser(User $user): self
+    {
+        $this->user = $user;
+
+        return $this;
     }
 
     public function setTitle(string $title): self

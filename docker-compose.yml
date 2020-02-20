@@ -6,6 +6,9 @@ services:
     container_name: symfony_mysql
     volumes:
       - .docker/data/db:/var/lib/mysql
+    ports:
+      - 3306:3306
+
     command:
       - "--default-authentication-plugin=mysql_native_password"
       - "--lower_case_table_names=1"
