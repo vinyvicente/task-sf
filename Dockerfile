@@ -9,6 +9,7 @@ RUN apt-get -qq update > /dev/null && DEBIAN_FRONTEND=noninteractive apt-get -qq
     ca-certificates \
     nginx \
     mariadb-client \
+    sqlite3 \
     wget \
     apt-transport-https > /dev/null &&\
     wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg &&\
@@ -23,6 +24,7 @@ RUN apt-get -qq update > /dev/null && DEBIAN_FRONTEND=noninteractive apt-get -qq
     php7.4-fpm \
     php7.4-xml \
     php7.4-mbstring \
+    php7.4-sqlite \
     php7.4-curl > /dev/null &&\
     apt-get clean && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/* &&\

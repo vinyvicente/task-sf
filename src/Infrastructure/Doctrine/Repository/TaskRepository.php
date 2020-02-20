@@ -21,12 +21,20 @@ class TaskRepository extends ServiceEntityRepository implements \App\Domain\Task
 
     public function create(\App\Domain\Task $task): int
     {
-        // TODO: Implement create() method.
+        $taskEntity = new Task();
+        $taskEntity->setTitle($task->toArray()['title']);
+
+        $this->getEntityManager()->persist($taskEntity);
+        $this->getEntityManager()->flush();
+
+        return $taskEntity->getId();
     }
 
     public function get($id): ?\App\Domain\Task
     {
-        // TODO: Implement get() method.
+        $entity = $this->find($id);
+
+        return new \App\Domain\Task($entity->getTitle());
     }
 
     public function update($id, \App\Domain\Task $task): \App\Domain\Task

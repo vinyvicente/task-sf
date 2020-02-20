@@ -10,4 +10,9 @@ class Task
     {
         $this->title = $title;
     }
+
+    public function toArray(): array
+    {
+        return ['title' => $this->title];
+    }
 }
