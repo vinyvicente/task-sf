@@ -2,27 +2,10 @@
 
 namespace App\Tests\Features;
 
-use Doctrine\ORM\Tools\SchemaTool;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use App\Tests\FeatureTestCase;
 
-class CreateTaskTest extends WebTestCase
+class CreateTaskTest extends FeatureTestCase
 {
-    private $em;
-
-    protected function setUp(): void
-    {
-        static::$kernel = static::createKernel();
-        static::$kernel->boot();
-        $this->em = static::$kernel->getContainer()
-            ->get('doctrine')
-            ->getManager()
-        ;
-
-        $metadata = $this->em->getMetadataFactory()->getAllMetadata();
-        $schemaTool = new SchemaTool($this->em);
-        $schemaTool->updateSchema($metadata);
-    }
-
     public function testCreateTask()
     {
         $client = static::createClient();
@@ -31,8 +14,28 @@ class CreateTaskTest extends WebTestCase
             ['CONTENT_TYPE' => 'application/json'],
             '{"title":"Fabien make a framework, to new version"}');
 
-        var_dump($client->getResponse()->getContent());
-
         $this->assertEquals(201, $client->getResponse()->getStatusCode());
+    }
+
+    public function testCreateTaskWithValidation()
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/tasks', [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{"title":"Fab"}');
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
+    }
+
+    public function testCreateTaskWithEmptyJson()
+    {
+        $client = static::createClient();
+        $client->request('POST', '/api/tasks', [],
+            [],
+            ['CONTENT_TYPE' => 'application/json'],
+            '{}');
+
+        $this->assertEquals(400, $client->getResponse()->getStatusCode());
     }
 }
