@@ -2,14 +2,19 @@
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Infrastructure\Doctrine\Entity\Common\Timestamps;
 use Doctrine\ORM\Mapping as ORM;
 use DateTimeInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * @ORM\Entity(repositoryClass="App\Infrastructure\Doctrine\Repository\UserRepository")
+ * @ORM\HasLifecycleCallbacks()
  */
-class User
+class User implements UserInterface
 {
+    use Timestamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -20,7 +25,17 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private ?string $name;
+    private string $name;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $username;
+
+    /**
+     * @ORM\Column(type="string", length=255, nullable=false)
+     */
+    private string $password;
 
     /**
      * @ORM\Column(type="datetime")
@@ -30,12 +45,12 @@ class User
     /**
      * @ORM\Column(type="string", unique=true, nullable=true)
      */
-    private string $token;
+    private ?string $token;
 
     /**
      * @ORM\Column(type="datetime", nullable=true)
      */
-    private DateTimeInterface $updatedAt;
+    private ?DateTimeInterface $updatedAt;
 
     public function getId(): ?int
     {
@@ -51,6 +66,26 @@ class User
     {
         $this->name = $name;
 
+        return $this;
+    }
+
+    /**
+     * @param string $username
+     * @return User
+     */
+    public function setUsername(string $username): User
+    {
+        $this->username = $username;
+        return $this;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword(string $password): User
+    {
+        $this->password = $password;
         return $this;
     }
 
@@ -87,5 +122,28 @@ class User
     {
         $this->token = $token;
         return $this;
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_USER'];
+    }
+
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    public function getSalt()
+    {
+    }
+
+    public function getUsername()
+    {
+        return $this->username;
+    }
+
+    public function eraseCredentials()
+    {
     }
 }

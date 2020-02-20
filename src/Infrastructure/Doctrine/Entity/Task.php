@@ -2,6 +2,7 @@
 
 namespace App\Infrastructure\Doctrine\Entity;
 
+use App\Infrastructure\Doctrine\Entity\Common\Timestamps;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -10,6 +11,8 @@ use Doctrine\ORM\Mapping as ORM;
  */
 class Task
 {
+    use Timestamps;
+
     /**
      * @ORM\Id()
      * @ORM\GeneratedValue()
@@ -101,13 +104,5 @@ class Task
         $this->updatedAt = $updatedAt;
 
         return $this;
-    }
-
-    /**
-     * @ORM\PrePersist()
-     */
-    public function prePersist()
-    {
-        $this->createdAt = new \DateTime();
     }
 }
