@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 class TaskHandlerTest extends TestCase
 {
     private TaskHandler $handler;
+    private int $userId = 1;
 
     protected function setUp(): void
     {
@@ -20,11 +21,11 @@ class TaskHandlerTest extends TestCase
 
     public function testScenario()
     {
-        $task = $this->handler->create('Test Title');
+        $task = $this->handler->create('Test Title', $this->userId);
 
         $this->assertEquals(1, $task);
 
-        $taskUpdated = $this->handler->update(1, 'New Title');
+        $taskUpdated = $this->handler->update(1, 'New Title', $this->userId);
 
         $this->assertInstanceOf(Task::class, $taskUpdated);
         $this->assertInstanceOf(Task::class, $this->handler->get(1));
@@ -34,7 +35,7 @@ class TaskHandlerTest extends TestCase
         $this->assertNull($this->handler->get(1));
 
         // trying update a task not existent
-        $task = $this->handler->update(1, 'New Title');
+        $task = $this->handler->update(1, 'New Title', $this->userId);
 
         $this->assertIsInt($task);
     }

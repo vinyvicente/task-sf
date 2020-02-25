@@ -24,9 +24,9 @@ class UserHandlerTest extends TestCase
         $this->assertEquals(1, $this->handler->createUser('Jane Doe'));
         $this->assertInstanceOf(User::class, $user = $this->handler->retrieve(1));
 
-        $user->add(new Task('My New Task'));
-        $user->add(new Task('My New Task 2'));
-        $user->add(new Task('My New Task 3'));
+        $user->add(new Task('My New Task', 1));
+        $user->add(new Task('My New Task 2', 1));
+        $user->add(new Task('My New Task 3', 1));
 
         $this->assertEquals(3, $user->quantityTasks());
         $this->assertIsArray($user->getTasks());

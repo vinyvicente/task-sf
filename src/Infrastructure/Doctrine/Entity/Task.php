@@ -22,7 +22,6 @@ class Task
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Infrastructure\Doctrine\Entity\User", inversedBy="users")
-     * @ORM\Column(type="integer", nullable=false)
      */
     private $user;
 

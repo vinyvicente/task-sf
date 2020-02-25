@@ -8,6 +8,7 @@ class CreateTaskTest extends FeatureTestCase
 {
     public function testCreateTaskWithoutAuth()
     {
+        $this->client->setServerParameter('HTTP_Authorization', ''); // clean token
         $this->client->request(
             'POST',
             '/api/tasks',

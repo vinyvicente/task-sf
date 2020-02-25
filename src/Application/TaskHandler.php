@@ -4,6 +4,7 @@ namespace App\Application;
 
 use App\Domain\Task;
 use App\Domain\TaskRepository;
+use App\Domain\UserRepository;
 
 class TaskHandler
 {
@@ -14,16 +15,16 @@ class TaskHandler
         $this->repository = $repository;
     }
 
-    public function create(string $title)
+    public function create(string $title, int $userId)
     {
-        $task = new Task($title);
+        $task = new Task($title, $userId);
 
         return $this->repository->create($task);
     }
 
-    public function update(int $id, string $title)
+    public function update(int $id, string $title, int $userId)
     {
-        $task = new Task($title);
+        $task = new Task($title, $userId);
         if ($this->repository->has($id)) {
             return $this->repository->update($id, $task);
         }
